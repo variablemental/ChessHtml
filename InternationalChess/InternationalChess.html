@@ -1,0 +1,845 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>InternationalChess</title>
+</head>
+<style type="text/css">
+
+.global{
+	position:absolute;
+}
+
+.chessboard{
+	height: 800px;
+	width: 800px;
+	border:1px solid black;
+	position:relative;
+	float:left;
+}
+
+.chessboard div{
+	height: 100px;
+	width: 100px;
+	border:1px solid black;
+	float:left;
+	box-sizing: border-box;
+	z-index=6;
+	/*position:absolute;*/
+}
+
+
+#colorgridboard{
+	height: 800px;
+	width: 800px;
+	border:1px solid black;
+	position:absolute;
+	float:left;
+	z-index=9;
+}
+
+#colorgridboard div{
+	height: 100px;
+	width: 100px;
+	border:1px solid black;
+	float:left;
+	box-sizing: border-box;
+
+}
+
+.chessboard div:nth-child(odd) div:nth-child(even){
+	background-color: black;
+}
+
+.chessboard div:nth-child(even) div:nth-child(odd){
+	background-color: black;
+}
+
+.chessboard div div:hover{
+	background:yellow;
+
+}
+
+.chess{
+	float:left;
+	z-index: 8;
+}
+
+.pic{
+	float:left;
+	height: 80px;
+	width: 80px;
+	margin:auto;
+	location:relative;
+	padding: 7px
+}
+
+.clock{
+	height: 800px;
+	width: 800px;
+	left:800px;
+	border:1px solid white;
+	position:relative;
+
+}
+
+.clock canvas{
+	width: 400px;
+	height: 400px;
+	float:top;
+	position:relative;
+
+	box-sizing: border-box;
+}
+
+
+/*#chessboard #row01 #col04{
+	background-color: red;
+}*/
+
+
+
+</style>
+
+<body>
+<div class="global">
+	<div id="chessboard" class="chessboard">
+		<div id="row01" class="row01">
+			<div id="col01" class="col01">
+			<img class="pic" src="../../../img/1.png" id="castle1" alt="">
+			</div>
+			<div id="col02" class="col02" onclick="m1()">
+				<img class="pic" src="../../../img/soldier.png" id="soldier1" alt="">
+			</div>
+			<div id="col03" class="col03"></div>
+			<div id="col04" class="col04"></div>
+			<div id="col05" class="col05"></div>
+			<div id="col06" class="col06"></div>
+			<div id="col07" class="col07">
+			<img class="pic" src="../../../img/soldier-w.png" id="soldier1-w" alt="">
+			</div>
+			<div id="col08" class="col08">
+			<img class="pic" src="../../../img/1-w.png" id="castle1-w" alt="">
+			</div>
+		</div>
+		<div id="row02" class="row02">
+			<div id="col01" class="col01">
+			<img class="pic" src="../../../img/2.png" id="Knight1" alt="">
+			</div>
+			<div id="col02" class="col02">
+			<img class="pic" src="../../../img/soldier.png" id="soldier3-w" alt="">
+			</div>
+			<div id="col03" class="col03"></div>
+			<div id="col04" class="col04"></div>
+			<div id="col05" class="col05"></div>
+			<div id="col06" class="col06"></div>
+			<div id="col07" class="col07">
+			<img class="pic" src="../../../img/soldier-w.png" id="soldier4-w" alt="">
+			</div>
+			<div id="col08" class="col08">
+			<img class="pic" src="../../../img/2-w.png" id="Knight1-w" alt="">
+			</div>
+		</div>
+		<div id="row03" class="row03">
+			<div id="col01" class="col01">
+			<img class="pic" src="../../../img/3.png" id="bishop1" alt="">
+			</div>
+			<div id="col02" class="col02">
+			<img class="pic" src="../../../img/soldier.png" id="soldier3" alt="">
+			</div>
+			<div id="col03" class="col03"></div>
+			<div id="col04" class="col04"></div>
+			<div id="col05" class="col05"></div>
+			<div id="col06" class="col06"></div>
+			<div id="col07" class="col07">
+			<img class="pic" src="../../../img/soldier-w.png" id="soldier3-w" alt="">
+			</div>
+			<div id="col08" class="col08">
+			<img class="pic" src="../../../img/3-w.png" id="bishop1-w" alt="">
+			</div>
+		</div>
+		<div id="row04" class="row04">
+			<div id="col01" class="col01">
+			<img  class="pic"  src="../../../img/4.png" id="King" alt="">
+			</div>
+			<div id="col02" class="col02">
+			<img class="pic"  src="../../../img/soldier.png" id="soldier4" alt="">
+			</div>
+			<div id="col03" class="col03"></div>
+			<div id="col04" class="col04"></div>
+			<div id="col05" class="col05"></div>
+			<div id="col06" class="col06"></div>
+			<div id="col07" class="col07">
+			<img class="pic" src="../../../img/soldier-w.png" id="soldier4-w" alt="">
+			</div>
+			<div id="col08" class="col08">
+			<img class="pic" src="../../../img/4-w.png" id="King-w" alt="">
+			</div>
+		</div>
+		<div id="row05" class="row05">
+			<div id="col01" class="col01">
+			<img class="pic"  src="../../../img/5.png" id="Queen" alt="">
+			</div>
+			<div id="col02" class="col02">
+			<img class="pic"  src="../../../img/soldier.png" id="soldier5" alt="">
+			</div>
+			<div id="col03" class="col03"></div>
+			<div id="col04" class="col04"></div>
+			<div id="col05" class="col05"></div>
+			<div id="col06" class="col06"></div>
+			<div id="col07" class="col07">
+			<img class="pic" src="../../../img/soldier-w.png" id="soldier5-w" alt="">
+			</div>
+			<div id="col08" class="col08">
+			<img class="pic" src="../../../img/5-w.png" id="Queen-w" alt="">
+			</div>
+		</div>
+		<div id="row06" class="row06">
+			<div id="col01" class="col01">
+			<img class="pic" src="../../../img/3.png" id="bishop2" alt="">
+			</div>
+			<div id="col02" class="col02">
+			<img class="pic" src="../../../img/soldier.png" id="soldier6" alt="">
+			</div>
+			<div id="col03" class="col03"></div>
+			<div id="col04" class="col04"></div>
+			<div id="col05" class="col05"></div>
+			<div id="col06" class="col06"></div>
+			<div id="col07" class="col07">
+			<img class="pic" src="../../../img/soldier-w.png" id="soldier6-w" alt="">
+			</div>
+			<div id="col08" class="col08">
+			<img class="pic" src="../../../img/3-w.png" id="bishop2-w" alt="">
+			</div>
+		</div>
+		<div id="row07" class="row07">
+			<div id="col01" class="col01">
+			<img class="pic" src="../../../img/2.png" id="Kinght2" alt="">
+			</div>
+			<div id="col02" class="col02">
+			<img class="pic" src="../../../img/soldier.png" id="soldier7" alt="">
+			</div>
+			<div id="col03" class="col03"></div>
+			<div id="col04" class="col04"></div>
+			<div id="col05" class="col05"></div>
+			<div id="col06" class="col06"></div>
+			<div id="col07" class="col07">
+			<img class="pic" src="../../../img/soldier-w.png" id="soldier7-w" alt="">
+			</div>
+			<div id="col08" class="col08">
+			<img class="pic" src="../../../img/2-w.png" id="Kinght2-w" alt="">
+			</div>
+		</div>
+		<div id="row08" class="row08">
+			<div id="col01" class="col01">
+			<img class="pic"  src="../../../img/1.png" id="castle2" alt="">
+			</div>
+			<div id="col02" class="col02">
+			<img class="pic"  src="../../../img/soldier.png" id="soldier8" alt="">
+			</div>
+			<div id="col03" class="col03"></div>
+			<div id="col04" class="col04"></div>
+			<div id="col05" class="col05"></div>
+			<div id="col06" class="col06"></div>
+			<div id="col07" class="col07">
+			<img class="pic" src="../../../img/soldier-w.png" id="soldier8-w" alt="">
+			</div>
+			<div id="col08" class="col08">
+			<img class="pic" src="../../../img/1-w.png" id="castle2-w" alt="">
+			</div>
+			</div>
+		</div>
+		<div id="colorgridboard" class="colorgridboard">
+		<div id="row01" class="row01">
+			<div id="col01" class="col01"></div>
+			<div id="col02" class="col02"></div>
+			<div id="col03" class="col03"></div>
+			<div id="col04" class="col04"></div>
+			<div id="col05" class="col05"></div>
+			<div id="col06" class="col06"></div>
+			<div id="col07" class="col07"></div>
+			<div id="col08" class="col08"></div>
+		</div>
+		<div id="row02" class="row02">
+			<div id="col01" class="col01"></div>
+			<div id="col02" class="col02"></div>
+			<div id="col03" class="col03"></div>
+			<div id="col04" class="col04"></div>
+			<div id="col05" class="col05"></div>
+			<div id="col06" class="col06"></div>
+			<div id="col07" class="col07"></div>
+			<div id="col08" class="col08"></div>
+		</div>
+		<div id="row03" class="row03">
+			<div id="col01" class="col01"></div>
+			<div id="col02" class="col02"></div>
+			<div id="col03" class="col03"></div>
+			<div id="col04" class="col04"></div>
+			<div id="col05" class="col05"></div>
+			<div id="col06" class="col06"></div>
+			<div id="col07" class="col07"></div>
+			<div id="col08" class="col08"></div>
+		</div>
+		<div id="row04" class="row04">
+			<div id="col01" class="col01"></div>
+			<div id="col02" class="col02"></div>
+			<div id="col03" class="col03"></div>
+			<div id="col04" class="col04"></div>
+			<div id="col05" class="col05"></div>
+			<div id="col06" class="col06"></div>
+			<div id="col07" class="col07"></div>
+			<div id="col08" class="col08"></div>
+		</div>
+		<div id="row05" class="row05">
+			<div id="col01" class="col01"></div>
+			<div id="col02" class="col02"></div>
+			<div id="col03" class="col03"></div>
+			<div id="col04" class="col04"></div>
+			<div id="col05" class="col05"></div>
+			<div id="col06" class="col06"></div>
+			<div id="col07" class="col07"></div>
+			<div id="col08" class="col08"></div>
+		</div>
+		<div id="row06" class="row06">
+			<div id="col01" class="col01"></div>
+			<div id="col02" class="col02"></div>
+			<div id="col03" class="col03"></div>
+			<div id="col04" class="col04"></div>
+			<div id="col05" class="col05"></div>
+			<div id="col06" class="col06"></div>
+			<div id="col07" class="col07"></div>
+			<div id="col08" class="col08"></div>
+		</div>
+		<div id="row07" class="row07">
+			<div id="col01" class="col01"></div>
+			<div id="col02" class="col02"></div>
+			<div id="col03" class="col03"></div>
+			<div id="col04" class="col04"></div>
+			<div id="col05" class="col05"></div>
+			<div id="col06" class="col06"></div>
+			<div id="col07" class="col07"></div>
+			<div id="col08" class="col08"></div>
+		</div>
+		<div id="row08" class="row08">
+			<div id="col01" class="col01"></div>
+			<div id="col02" class="col02"></div>
+			<div id="col03" class="col03"></div>
+			<div id="col04" class="col04"></div>
+			<div id="col05" class="col05"></div>
+			<div id="col06" class="col06"></div>
+			<div id="col07" class="col07"></div>
+			<div id="col08" class="col08"></div>
+		</div>
+	</div>
+</div>
+	<div class="clock" id="clock" canvans="">
+		<canvas class="canvas" id="canvas"></canvas>
+		<canvas clas="canvas" id="canvas2"></canvas>
+	</div>
+</body>
+</html>
+<script src="init.js"></script>
+<script src="chesses.js"></script>
+<script src="chessesdata.js"></script>
+<script type="text/javascript">
+!function(){
+	var decide=false;
+	var icon=0;
+	var chessp;
+	var lostchess;
+	var length=8;
+	var width=8;
+
+	var Namemaps=function(){
+		this.number=7;
+	    this.elements=["soldiers","soldiers","bishops","knights","kings","queens","castles"];
+	    this.keyset=["Soldier","Soldier-w","Knight","Bishop","Knight","King","Queen","Castle"];
+		this.get=function(key){
+			console.log(key);
+			for(var i=0;i<this.number;i++)
+				if(this.keyset[i]==key)
+				{
+					console.log('sisi');
+					return this.elements[i];
+				}
+			return null;
+		}
+		this.getnum=function(){
+			return this.number;
+
+		}
+	};
+	var $=function(selector){
+		return document.querySelector(selector);
+	}
+	var location=function(a,b){
+		return $('#chessboard'+' #row0'+a+' #col0'+b);
+	}
+
+	var locationColor=function(a,b){
+		return $('#colorgridboard'+' #row0'+a+' #col0'+b);
+	}
+
+	function getNumber(data){
+		return parseInt(data);
+	}
+	clear();
+
+
+	console.log(location(1,3));
+
+	function up(a,b)
+	{
+		var div=locationColor(a,b);
+		console.log('a='+a+',b='+b+',div='+div);
+		div.style.backgroudColor='#abc';
+		while(true)
+		{
+			if(div.previousSibling)
+			{
+				if(div.previousSibling==1)
+					div.previousSibling.style.backgroudColor='hsla(200,80%,60%,0.5)';
+				div=div.previousSibling;
+			}
+			else
+				break;
+		}
+	}
+	function down(a,b)
+	{
+		var div=locationColor(a,b);
+		while(true)
+		{
+			if(div.nextSibling)
+			{
+				if(div.nextSibling==1)
+					div.nextSibling.style.backgroundColor='hsla(200,80%,60%,0.5)';
+				div=div.nextSibling;
+			}
+			else
+				break;
+		}
+	}
+	function vertical(a,b)
+	{
+		for(var i=1;i<=length;i++)
+		{
+			var div=locationColor(a,i);
+			div.style.backgroundColor='hsla(200,80%,60%,0.5)';
+		}
+	}
+
+	function left(a,b)
+	{
+		for(var i=1;i<=length;i++)
+		{
+			var div=locationColor(i,b);
+			div.style.backgroundColor='hsla(200,80%,60%,0.5)';
+		}
+	}
+
+	/*
+		true---not out of range
+		false---out of range
+	*/
+
+	function OutOfRange(a,b){
+		if(a<=0||b<=0)
+			return false;
+		if(a>length||b>length)
+			return false;
+		return true;
+	}
+
+	function cross(a,b)
+	{
+		vertical(a,b);
+		left(a,b);
+	}
+	function leftUp2rigthDown(a,b){
+		var s=b-a;
+		for(var i=1;i<=length;i++)
+		{
+			console.log('i='+i+',-(s-i)='+(-(s-i)));
+			// console.log('s+i='+(s+i));
+			if((length-i+s)>=1&&(length-i+s)<=length)
+			{
+				var div=location(i,length-i+s);
+				div.style.backgroundColor='#abc';
+			}
+			if(s+i>=1&&s+i<=length)
+			{	
+				var div1=location(i,s+i);
+				div1.style.backgroundColor='#abc';
+			}
+		}		
+	}
+
+	function clear(){
+		for(var i=1;i<=length;i++)
+		{
+			for(var j=1;j<=length;j++)
+			{
+				var div=locationColor(i,j);
+				div.style.backgroundColor='hsla(100,80%,60%,0.1)';
+			}
+		}
+	}
+
+
+	function CornerToCorner(a,b){
+		var Na=parseInt(a);
+		var Nb=parseInt(b);
+		var div;
+		console.log('a='+a+'b='+b);
+		for(var i=1;i<length;i++)
+		{
+			var tag=0;
+			if(OutOfRange(Na-i,Nb-i))
+			{
+				
+				div=locationColor(Na-i,Nb-i);
+				div.style.backgroundColor='hsla(200,80%,60%,0.5)';
+			}
+			else
+				tag++;
+			if(OutOfRange(Na+i,Nb-i))
+			{
+				
+				div=locationColor(Na+i,Nb-i);
+				div.style.backgroundColor='#hsla(200,80%,60%,0.5)';
+			}
+			else
+				tag++;
+			if(OutOfRange(Na-i,Nb+i))
+			{
+				
+				div=locationColor(Na-i,Nb+i);
+				div.style.backgroundColor='hsla(200,80%,60%,0.5)';
+			}
+			else
+				tag++;
+			if(OutOfRange(Na+i,Nb+i))
+			{
+				div=locationColor(Na+i,Nb+i);
+				div.style.backgroundColor='hsla(200,80%,60%,0.5)';
+			}
+			else
+				tag++;
+			if(tag==4)
+				break;
+		}
+
+	}
+
+	function onChess(x,y){
+		// console.log(soldiers);
+		console.log(knights);
+		console.log('x='+x+'y='+y);
+		for(var i=0;i<soldiers.length;i++)
+		{
+			if(soldiers[i].x==x&&soldiers[i].y==y)
+			{
+				// console.log('soldier:'+soldiers[i].x+','+soldiers[i].y);
+				if(i%2==1){
+					return 'Soldier-w';
+				}
+				else{
+					return 'Soldier'
+				}
+			}
+			if(i<knights.length&&knights[i].x==x&&knights[i].y==y){
+				console.log('fucking horse');
+				icon=i;
+				return 'Knight';
+			}
+			if(i<kings.length&&kings[i].x==x&&kings[i].y==y){
+				icon=i;
+				return 'King';
+			}
+			if(i<queens.length&&queens[i].x==x&&queens[i].y==y){
+				icon=i;
+				return 'Queen';
+			}
+			if(i<bishops.length&&bishops[i].x==x&&bishops[i].y==y){
+				icon=i;
+				return 'Bishop';
+			}
+			if(i<castles.length&&castles[i].x==x&&castles[i].y==y){
+				icon=i;
+				return 'Castle';
+			}
+		}
+		return 'Default';
+	}
+
+	var findi=function(Obj,x,y){
+		console.log(Obj+',x'+x+',y'+y);
+		var it;
+		eval('it='+Obj);
+		for(var i=0;i<it.length;i++){
+			// console.log(it);
+			// console.log(it[i].x+','+it[i].y);
+			if(it[i].x==x&&it[i].y==y){
+				return it[i];
+			}
+		}
+		return null;
+	}
+	// var regex=/[0]/;
+	// var str='abc011';
+	// console.log(str.split(regex)[1]);
+	for(var i=1;i<=length;i++)
+	{
+		// console.log(i+' ');
+		for(var j=1;j<=width;j++)
+		{
+			// console.log(j);
+			// console.log(soldiers);
+			locationColor(i,j).addEventListener('click',function(){
+				var maps=new Namemaps();
+				var regex=/[0]/;
+				var col=this.getAttribute('class').split(regex)[1];
+				var row=this.parentNode.getAttribute('class').split(regex)[1];
+				console.log('row='+row+'col='+col);
+				var local=grids[(parseInt(col)-1)*8+parseInt(row)-1];
+				local.Selected=!local.Selected;
+				console.log(local);
+				var x=parseInt(row)
+				var y=parseInt(col);
+				console.log('x='+x+','+'y='+y);
+				if(decide)
+				{
+					var type;
+					var d;
+					d=findi(chessp,lostchess.x,lostchess.y);
+					console.log(d);
+					//eval('d='+chessp+'['+icon+']');
+					if(CheckRoad(x,y,d)){
+						var div=location(lostchess.x,lostchess.y);
+						var target=location(x,y);
+						console.log(target);
+						// var child=target.firstChild.nextSibling;
+						 var moveNode=div.removeChild(div.firstChild);	
+						 console.log(typeof(movediv));
+						console.log(moveNode);
+						// console.log(maps.get('Soldier'));
+						if(typeof(type=onChess(x,y))=='string'&&type!='Default')
+						{
+							console.log(type);
+							var cheflag=findi(maps.get(type),x,y).flag;
+							findi(maps.get(type),x,y).x=0;
+							findi(maps.get(type),0,y).y=0;
+							console.log(cheflag+','+lostchess.flag);
+							if(cheflag==lostchess.flag)
+								return ;
+							else
+							{
+								var i=0;
+								for(;target.childNodes[i].nodeType!=1;i++);
+								console.log(target.childNodes[i]);
+								target.removeChild(target.childNodes[i]);
+							}	
+						}
+						// console.log('movediv='+movediv);
+						console.log(div);
+						console.log(div.firstChild);
+						if(div.firstChild==null)
+							target.appendChild(moveNode);
+						else
+							target.appendChild(div.firstChild);
+
+						d.x=x;
+						d.y=y;
+					}
+					decide=false;
+					clear();
+					return ;
+
+				}
+				switch(onChess(x,y))
+				{
+					case 'Soldier':     soldier(x,y,1);
+										chessp='soldiers';
+										lostchess=new chesses(1,x,y,0);
+										decide=true;
+										return ;
+					case 'Soldier-w' :  soldier(x,y,-1);
+										chessp='soldiers';
+										lostchess=new chesses(-1,x,y,0);
+										decide=true;
+										return ;
+					case 'Knight' : 	
+										knight(x,y);
+										decide=true;
+										chessp='knights';
+										var datache=findi(chessp,x,y);
+										lostchess=new chesses(datache.flag,x,y,0);
+										return ;
+					case 'Bishop' : 	bishop(x,y);
+										decide=true;
+										chessp='bishops';
+										var datache=findi(chessp,x,y);
+										lostchess=new chesses(datache.flag,x,y,0);
+										return ;
+					case 'King' : 		king(x,y);
+										decide=true;
+										chessp='kings';
+										var datache=findi(chessp,x,y);
+										lostchess=new chesses(datache.flag,x,y,0);
+										return ;
+					case 'Queen' : 		queen(x,y);
+										decide=true;
+										chessp='queens';
+										var datache=findi(chessp,x,y);
+										lostchess=new chesses(datache.flag,x,y,0);
+										return ;
+					case 'Castle' :     castle(x,y);
+										chessp='castles';
+										decide=true;
+										var datache=findi(chessp,x,y);
+										lostchess=new chesses(datache.flag,x,y,0);
+										return ;
+					default : break;
+				}
+			
+			});
+		}
+	}
+
+
+
+	/*-------------------------chesses.js-----------------------------*/
+	var castle=function(a,b){
+		cross(a,b);
+	}
+	var bishop=function(a,b){
+		CornerToCorner(a,b);
+	}
+	var queen=function(a,b){
+		cross(a,b);
+		CornerToCorner(a,b);
+	}
+	/*
+		flag:Integer
+		flag==-1 or flag==1 for direction
+	*/
+	var soldier=function(a,b,flag){	
+		console.log('soldier in command');
+		var step=1;
+		if(b==2||b==7)
+			step=2;
+		for(var i=1;OutOfRange(a,b+i*flag)&&i<=step;i++)
+		{
+			console.log('hehe');
+			var div=locationColor(a,b+i*flag);
+			console.log(div);
+			div.style.backgroundColor='hsla(200,80%,60%,0.5)';
+		}
+
+	}
+	var knight=function(a,b){
+		console.log('fucking horse');
+		if(OutOfRange(a,b-2))
+		{
+			if(OutOfRange(a-1,b-2))
+			{
+				var div=locationColor(a-1,b-2);
+				div.style.backgroundColor='hsla(200,80%,60%,0.5)';
+			}
+			if(OutOfRange(a+1,b-2))
+			{
+				var div=locationColor(a+1,b-2);
+				div.style.backgroundColor='hsla(200,80%,60%,0.5)';
+			}
+		}
+		if(OutOfRange(a+2,b))
+		{
+			if(OutOfRange(a+2,b-1))
+				locationColor(a+2,b-1).style.backgroundColor='hsla(200,80%,60%,0.5)';
+			if(OutOfRange(a+2,b+1))
+				locationColor(a+2,b+1).style.backgroundColor='hsla(200,80%,60%,0.5)';
+		}
+		if(OutOfRange(a-2,b))
+		{
+			if(OutOfRange(a-2,b-1))
+				locationColor(a-2,b-1).style.backgroundColor='hsla(200,80%,60%,0.5)';
+			if(OutOfRange(a-2,b+1))
+				locationColor(a-2,b+1).style.backgroundColor='hsla(200,80%,60%,0.5)';
+		}
+		if(OutOfRange(a,b-2))
+		{
+			if(OutOfRange(a-1,b-2))
+				locationColor(a-1,b-2).style.backgroundColor='hsla(200,80%,60%,0.5)';
+			if(OutOfRange(a+1,b-2))
+				locationColor(a+1,b-2).style.backgroundColor='hsla(200,80%,60%,0.5)';
+		}
+		if(OutOfRange(a,b+2)){
+			if(OutOfRange(a+1,b+2))
+				locationColor(a+1,b+2).style.backgroundColor='hsla(200,80%,60%,0.5)';
+			if(OutOfRange(a-1,b+2))
+				locationColor(a-1,b+2).style.backgroundColor='hsla(100,80%,60%,0.5)';
+		}
+	}
+	var king=function(a,b)
+	{
+		if(OutOfRange(a,b+2))
+			locationColor(a,b+2).style.backgroundColor='hsla(200,80%,60%,0.5)';
+		if(OutOfRange(a,b-2))
+			locationColor(a,b-2).style.backgroundColor='hsla(200,80%,60%,0.5)';
+		if(OutOfRange(a+2,b))
+			locationColor(a+2,b).style.backgroundColor='hsla(200,80%,60%,0.5)';
+		if(OutOfRange(a-2,b))
+			locationColor(a-2,b).style.backgroundColor='hsla(200,80%,60%,0.5)';
+	}
+
+!function(){
+	var drawing=$('#canvas');
+	if(drawing.getContext("2d"))
+	{
+		var context=drawing.getContext("2d");
+		//context.fillStyle='#ff000';
+		context.beginPath();
+		context.arc(100,60,59,0,2*Math.PI,false);
+		// context.moveTo(100,100);
+		// context.arc(100,100,93,0,2*Math.PI,false);
+		context.moveTo(100,60);
+		context.lineTo(100,15);
+		context.moveTo(100,60);
+		context.lineTo(55,100);
+		context.stroke();
+
+
+		// context.fillRect(5,5,200,200);
+	}
+
+}()
+
+	
+!function(){
+}();
+
+function grid(x,y,selected){
+		this.x=x;
+		this.y=y;
+		this.Selected=selected;
+	}
+
+	var grids=new Array(64);
+	for(var i=0;i<grids.length;i++)
+	{
+		// if((i+1)%8!=0)
+		// 	grids[i]=new grid((i+1)%8,Math.floor(i/8+1),false);
+		// else
+		// 	grids[i]=new grid(8,Math.floor(i/8+1),false);
+		grids[i]=new grid((i+1)%8==0?8:(i+1)%8,Math.floor(i/8+1),false);
+	}
+	// console.log(grids);
+
+
+}();
+	function m1(){
+		console.log('---------');
+	}
+</script>
