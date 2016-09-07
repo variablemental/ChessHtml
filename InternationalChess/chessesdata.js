@@ -48,9 +48,9 @@ function CheckRoad(x,y,chs)
 		}
 		if(chs.type == kings[0].type)
 		{
-			if(chs.x==x||Math.abs(chs.y-y)<=2)
+			if(chs.x==x&&Math.abs(chs.y-y)<=2)
 				return true;
-			if(chs.y==y||Math.abs(chs.x-x)<=2)
+			if(chs.y==y&&Math.abs(chs.x-x)<=2)
 				return true;
 			return false;
 		}
@@ -59,11 +59,11 @@ function CheckRoad(x,y,chs)
 			console.log(chs);
 			if(chs.y==2||chs.y==7)
 			{
-				if((y-chs.y)*chs.flag<=2)
+				if(((y-chs.y)*chs.flag<=2)&&chs.x==x)
 					return true;
 				return false;
 			}
-			else if((y-chs.y)*chs.flag==1)
+			else if(((y-chs.y)*chs.flag==1)&&chs.x==x)
 				return true;
 			return false;
 		}
@@ -109,6 +109,7 @@ function CheckRoad(x,y,chs)
 			else
 				soldiers[i]=new chesses(-1,Math.floor((i+1)/2),7,2,'soldier');
 		}
+		soldiers[0]=new chesses(1,8,2,2,'soldier');
 		console.log(soldiers[1] === soldiers[1]);		
 	}();
 
