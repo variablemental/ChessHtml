@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>InternationalChess</title>
+</head>
+<style type="text/css">
+
+.global{
+	position:absolute;
+}
+
+.chessboard{
+	height: 800px;
+	width: 800px;
+	border:1px solid black;
+	position:relative;
+	float:left;
+}
+
+.chessboard div{
+	height: 100px;
+	width: 100px;
+	border:1px solid black;
+	float:left;
+	box-sizing: border-box;
+	z-index=6;
+	/*position:absolute;*/
+}
+
+
+#colorgridboard{
+	height: 800px;
+	width: 800px;
+	border:1px solid black;
+	position:absolute;
+	float:left;
+	z-index=9;
+}
+
+#colorgridboard div{
+	height: 100px;
+	width: 100px;
+	border:1px solid black;
+	float:left;
+	box-sizing: border-box;
+
+}
+
+.chessboard div:nth-child(odd) div:nth-child(even){
+	background-color: black;
+}
+
+.chessboard div:nth-child(even) div:nth-child(odd){
+	background-color: black;
+}
+
+.chessboard div div:hover{
+	background:yellow;
+
+}
+
+.chess{
+	float:left;
+	z-index: 8;
+}
+
+.pic{
+	float:left;
+	height: 80px;
+	width: 80px;
+	margin:auto;
+	location:relative;
+	padding: 7px
+}
+
+.clock{
+	height: 800px;
+	width: 800px;
+	left:800px;
+	border:1px solid white;
+	position:relative;
+
+}
+
+.clock canvas{
+	height: 400px;
+	float:top;
+	position:relative;
+
+	box-sizing: border-box;
+}
+
+
+/*#chessboard #row01 #col04{
+	background-color: red;
+}*/
+
+
+
+</style>
+
+<body>
+<div class="global">
+	<div id="chessboard" class="chessboard">
+		<div id="row01" class="row01">
+			<div id="col01" class="col01">
+			<img class="pic" src="img/1.png" id="castle1" alt="">
+			</div>
+			<div id="col02" class="col02" onclick="m1()">
+				<img class="pic" src="img/soldier.png" id="soldier1" alt="">
+			</div>
+			<div id="col03" class="col03"></div>
+			<div id="col04" class="col04"></div>
+			<div id="col05" class="col05"></div>
+			<div id="col06" class="col06"></div>
+			<div id="col07" class="col07">
+			<img class="pic" src="img/soldier-w.png" id="soldier1-w" alt="">
+			</div>
+			<div id="col08" class="col08">
+			<img class="pic" src="img/1-w.png" id="castle1-w" alt="">
+			</div>
+		</div>
+		<div id="row02" class="row02">
+			<div id="col01" class="col01">
+			<img class="pic" src="img/2.png" id="Knight1" alt="">
+			</div>
+			<div id="col02" class="col02">
+			<img class="pic" src="img/soldier.png" id="soldier3-w" alt="">
+			</div>
+			<div id="col03" class="col03"></div>
+			<div id="col04" class="col04"></div>
+			<div id="col05" class="col05"></div>
+			<div id="col06" class="col06"></div>
+			<div id="col07" class="col07">
+			<img class="pic" src="img/soldier-w.png" id="soldier4-w" alt="">
+			</div>
+			<div id="col08" class="col08">
+			<img class="pic" src="img/2-w.png" id="Knight1-w" alt="">
+			</div>
+		</div>
+		<div id="row03" class="row03">
+			<div id="col01" class="col01">
+			<img class="pic" src="img/3.png" id="bishop1" alt="">
+			</div>
+			<div id="col02" class="col02">
+			<img class="pic" src="img/soldier.png" id="soldier3" alt="">
+			</div>
+			<div id="col03" class="col03"></div>
+			<div id="col04" class="col04"></div>
+			<div id="col05" class="col05"></div>
+			<div id="col06" class="col06"></div>
+			<div id="col07" class="col07">
+			<img class="pic" src="img/soldier-w.png" id="soldier3-w" alt="">
+			</div>
+			<div id="col08" class="col08">
+			<img class="pic" src="img/3-w.png" id="bishop1-w" alt="">
+			</div>
+		</div>
+		<div id="row04" class="row04">
+			<div id="col01" class="col01">
+			<img  class="pic"  src="img/4.png" id="King" alt="">
+			</div>
+			<div id="col02" class="col02">
+			<img class="pic"  src="img/soldier.png" id="soldier4" alt="">
+			</div>
+			<div id="col03" class="col03"></div>
+			<div id="col04" class="col04"></div>
+			<div id="col05" class="col05"></div>
+			<div id="col06" class="col06"></div>
+			<div id="col07" class="col07">
+			<img class="pic" src="img/soldier-w.png" id="soldier4-w" alt="">
+			</div>
+			<div id="col08" class="col08">
+			<img class="pic" src="img/4-w.png" id="King-w" alt="">
+			</div>
+		</div>
+		<div id="row05" class="row05">
+			<div id="col01" class="col01">
+			<img class="pic"  src="img/5.png" id="Queen" alt="">
+			</div>
+			<div id="col02" class="col02">
+			<img class="pic"  src="img/soldier.png" id="soldier5" alt="">
+			</div>
+			<div id="col03" class="col03"></div>
+			<div id="col04" class="col04"></div>
+			<div id="col05" class="col05"></div>
+			<div id="col06" class="col06"></div>
+			<div id="col07" class="col07">
+			<img class="pic" src="img/soldier-w.png" id="soldier5-w" alt="">
+			</div>
+			<div id="col08" class="col08">
+			<img class="pic" src="img/5-w.png" id="Queen-w" alt="">
+			</div>
+		</div>
+		<div id="row06" class="row06">
+			<div id="col01" class="col01">
+			<img class="pic" src="img/3.png" id="bishop2" alt="">
+			</div>
+			<div id="col02" class="col02">
+			<img class="pic" src="img/soldier.png" id="soldier6" alt="">
+			</div>
+			<div id="col03" class="col03"></div>
+			<div id="col04" class="col04"></div>
+			<div id="col05" class="col05"></div>
+			<div id="col06" class="col06"></div>
+			<div id="col07" class="col07">
+			<img class="pic" src="img/soldier-w.png" id="soldier6-w" alt="">
+			</div>
+			<div id="col08" class="col08">
+			<img class="pic" src="img/3-w.png" id="bishop2-w" alt="">
+			</div>
+		</div>
+		<div id="row07" class="row07">
+			<div id="col01" class="col01">
+			<img class="pic" src="img/2.png" id="Kinght2" alt="">
+			</div>
+			<div id="col02" class="col02">
+			<img class="pic" src="img/soldier.png" id="soldier7" alt="">
+			</div>
+			<div id="col03" class="col03"></div>
+			<div id="col04" class="col04"></div>
+			<div id="col05" class="col05"></div>
+			<div id="col06" class="col06"></div>
+			<div id="col07" class="col07">
+			<img class="pic" src="img/soldier-w.png" id="soldier7-w" alt="">
+			</div>
+			<div id="col08" class="col08">
+			<img class="pic" src="img/2-w.png" id="Kinght2-w" alt="">
+			</div>
+		</div>
+		<div id="row08" class="row08">
+			<div id="col01" class="col01">
+			<img class="pic"  src="img/1.png" id="castle2" alt="">
+			</div>
+			<div id="col02" class="col02">
+			<img class="pic"  src="img/soldier.png" id="soldier8" alt="">
+			</div>
+			<div id="col03" class="col03"></div>
+			<div id="col04" class="col04"></div>
+			<div id="col05" class="col05"></div>
+			<div id="col06" class="col06"></div>
+			<div id="col07" class="col07">
+			<img class="pic" src="img/soldier-w.png" id="soldier8-w" alt="">
+			</div>
+			<div id="col08" class="col08">
+			<img class="pic" src="img/1-w.png" id="castle2-w" alt="">
+			</div>
+			</div>
+		</div>
+		<div id="colorgridboard" class="colorgridboard">
+		<div id="row01" class="row01">
+			<div id="col01" class="col01"></div>
+			<div id="col02" class="col02"></div>
+			<div id="col03" class="col03"></div>
+			<div id="col04" class="col04"></div>
+			<div id="col05" class="col05"></div>
+			<div id="col06" class="col06"></div>
+			<div id="col07" class="col07"></div>
+			<div id="col08" class="col08"></div>
+		</div>
+		<div id="row02" class="row02">
+			<div id="col01" class="col01"></div>
+			<div id="col02" class="col02"></div>
+			<div id="col03" class="col03"></div>
+			<div id="col04" class="col04"></div>
+			<div id="col05" class="col05"></div>
+			<div id="col06" class="col06"></div>
+			<div id="col07" class="col07"></div>
+			<div id="col08" class="col08"></div>
+		</div>
+		<div id="row03" class="row03">
+			<div id="col01" class="col01"></div>
+			<div id="col02" class="col02"></div>
+			<div id="col03" class="col03"></div>
+			<div id="col04" class="col04"></div>
+			<div id="col05" class="col05"></div>
+			<div id="col06" class="col06"></div>
+			<div id="col07" class="col07"></div>
+			<div id="col08" class="col08"></div>
+		</div>
+		<div id="row04" class="row04">
+			<div id="col01" class="col01"></div>
+			<div id="col02" class="col02"></div>
+			<div id="col03" class="col03"></div>
+			<div id="col04" class="col04"></div>
+			<div id="col05" class="col05"></div>
+			<div id="col06" class="col06"></div>
+			<div id="col07" class="col07"></div>
+			<div id="col08" class="col08"></div>
+		</div>
+		<div id="row05" class="row05">
+			<div id="col01" class="col01"></div>
+			<div id="col02" class="col02"></div>
+			<div id="col03" class="col03"></div>
+			<div id="col04" class="col04"></div>
+			<div id="col05" class="col05"></div>
+			<div id="col06" class="col06"></div>
+			<div id="col07" class="col07"></div>
+			<div id="col08" class="col08"></div>
+		</div>
+		<div id="row06" class="row06">
+			<div id="col01" class="col01"></div>
+			<div id="col02" class="col02"></div>
+			<div id="col03" class="col03"></div>
+			<div id="col04" class="col04"></div>
+			<div id="col05" class="col05"></div>
+			<div id="col06" class="col06"></div>
+			<div id="col07" class="col07"></div>
+			<div id="col08" class="col08"></div>
+		</div>
+		<div id="row07" class="row07">
+			<div id="col01" class="col01"></div>
+			<div id="col02" class="col02"></div>
+			<div id="col03" class="col03"></div>
+			<div id="col04" class="col04"></div>
+			<div id="col05" class="col05"></div>
+			<div id="col06" class="col06"></div>
+			<div id="col07" class="col07"></div>
+			<div id="col08" class="col08"></div>
+		</div>
+		<div id="row08" class="row08">
+			<div id="col01" class="col01"></div>
+			<div id="col02" class="col02"></div>
+			<div id="col03" class="col03"></div>
+			<div id="col04" class="col04"></div>
+			<div id="col05" class="col05"></div>
+			<div id="col06" class="col06"></div>
+			<div id="col07" class="col07"></div>
+			<div id="col08" class="col08"></div>
+		</div>
+	</div>
+</div>
+	<div class="clock" id="clock" canvans="">
+		<canvas class="canvas" id="canvas"></canvas>
+		<canvas clas="canvas" id="canvas2"></canvas>
+	</div>
+</body>
+</html>
+<script src="init.js"></script>
+<script src="chesses.js"></script>
+<script src="chessesdata.js"></script>
+<script src="jquery-3.1.0.js"></script>
+<script src="chessinfo.js"></script>
+<script src="chains.js"></script>
+<script type="text/javascript">	
+
+!function(){
+	var decide=false;
+	var icon=0;
+	var chessp;
+	var lostchess;
+	var length=8;
+	var width=8;
+	var govern=1;
+	var Grid=new gridChess();
+	Grid.init();	//说明没有封装完全,需要过程性的叙述
+	var startdot=new dots(0,0);
+	var head=new createNode(startdot);
+	var chain=new Chain(head);
+	var Namemaps=function(){
+		this.number=7;
+	    this.elements=["soldiers","soldiers","bishops","knights","kings","queens","castles"];
+	    this.keyset=["Soldier","Soldier-w","Bishop","Knight","King","Queen","Castle"];
+		this.get=function(key){
+			for(var i=0;i<this.number;i++)
+				if(this.keyset[i]==key)
+				{
+					return this.elements[i];
+				}
+			return null;
+		}
+		this.getnum=function(){
+			return this.number;
+
+		}
+	};
+	var $$=function(selector){
+		return document.querySelector(selector);
+	}
+	var location=function(a,b){
+		return $('#chessboard'+' #row0'+a+' #col0'+b);
+	}
+
+	var locationColor=function(a,b){
+		return $$('#colorgridboard'+' #row0'+a+' #col0'+b);
+	}
+
+	function getNumber(data){
+		return parseInt(data);
+	}
+	clear();
+
+	function up(a,b)
+	{
+		var div=locationColor(a,b);
+		console.log('a='+a+',b='+b+',div='+div);
+		div.style.backgroudColor='#abc';
+		while(true)
+		{
+			if(div.previousSibling)
+			{
+				if(div.previousSibling==1)
+					div.previousSibling.style.backgroudColor='hsla(200,80%,60%,0.5)';
+				div=div.previousSibling;
+			}
+			else
+				break;
+		}
+	}
+	function down(a,b)
+	{
+		var div=locationColor(a,b);
+		while(true)
+		{
+			if(div.nextSibling)
+			{
+				if(div.nextSibling==1)
+					div.nextSibling.style.backgroundColor='hsla(200,80%,60%,0.5)';
+				div=div.nextSibling;
+			}
+			else
+				break;
+		}
+	}
+
+	var loadDat=function(a,b)
+	{
+		var data=new dots(b-1,a-1);
+		chain.append(data);
+		locationColor(a,b).style.backgroundColor='hsla(200,80%,60%,0.5)';
+	}
+
+	var getColor=function(currentchain)
+	{
+		var currentNode=currentchain.head.next;
+		while(currentNode!=null)
+		{
+			locationColor(currentNode.data.y+1,currentNode.data.x+1).style.backgroundColor='hsla(200,80%,60%,0.5)';
+			currentNode=currentNode.next;
+		}
+	}
+
+	function vertical(a,b)
+	{
+		var obstacle=new Array();
+		var chainUp=Grid.getFeasibleChains(b-1,a-1,1);
+		var chaindown=Grid.getFeasibleChains(b-1,a-1,2);
+		chainUp.merge(chaindown);
+		chain.merge(chainUp);
+		var currentNode=chainUp.head.next;
+		console.log(currentNode);
+		while(currentNode!=null)
+		{
+			locationColor(currentNode.data.y+1,currentNode.data.x+1).style.backgroundColor='hsla(200,80%,60%,0.5)';
+			currentNode=currentNode.next;
+		}
+	}
+
+	function left(a,b)
+	{
+		var obstacle=new Array();
+		var chainLeft=Grid.getFeasibleChains(b-1,a-1,3);
+		var chainRight=Grid.getFeasibleChains(b-1,a-1,4);
+		chainLeft.merge(chainRight);
+		chain.merge(chainLeft);
+		getColor(chain);
+		// for(var i=0;OutOfRange(a+i,b);i++)
+		// {
+		// 	var newDat=new dots(b-1,a+i-1);
+		// 	if(Grid.CheckObstacle(b,a,0,i))
+		// 	{
+		// 		var token=true;
+		// 		for(var j=0;j<obstacle.length;j++)
+		// 		{
+		// 			if(obstacle[j].y>newDat.y&&obstacle[j].x==newDat.x)
+		// 			{
+		// 				token=false;
+		// 				break;
+		// 			}
+		// 		}
+		// 		if(token)
+		// 		{
+		// 			chain.append(newDat);
+		// 			var div=locationColor(a+i,b);
+		// 			div.style.backgroundColor='hsla(200,80%,60%,0.5)';
+		// 		}
+		// 	}
+		// 	else
+		// 		obstacle.push(newDat);
+		// }
+		// for(var i=0;OutOfRange(a-i,b);i++)
+		// {
+		// 	var newDat=new dots(b-1,a-i-1);
+		// 	if(Grid.CheckObstacle(b,a,0,-i))
+		// 	{
+		// 		var token=true;
+		// 		for(var j=0;j<obstacle.length;j++)
+		// 		{
+		// 			if(obstacle[j].y>newDat.y&&newDat.x==obstacle[j].x)
+		// 			{
+		// 				token=false;
+		// 				break;
+		// 			}
+		// 		}
+		// 		if(token)
+		// 		{
+		// 			chain.append(newDat);
+		// 			var div=locationColor(a-i,b);
+		// 			div.style.backgroundColor='hsla(200,80%,60%,0.5)';
+		// 		}
+		// 	}
+		// 	else
+		// 		obstacle.push(newDat);
+		// }
+	}
+
+
+	/*
+		true---not out of range
+		false---out of range
+	*/
+
+	//写反了但是重构太麻烦了所以.......
+	function OutOfRange(a,b){
+		if(a<=0||b<=0)
+			return false;
+		if(a>length||b>length)
+			return false;
+		return true;
+	}
+
+	function cross(a,b)
+	{
+		vertical(a,b);
+		left(a,b);
+	}
+	function leftUp2rigthDown(a,b){
+		var s=b-a;
+		for(var i=1;i<=length;i++)
+		{
+			console.log('i='+i+',-(s-i)='+(-(s-i)));
+			// console.log('s+i='+(s+i));
+			if((length-i+s)>=1&&(length-i+s)<=length)
+			{
+				var div=location(i,length-i+s);
+				div.style.backgroundColor='#abc';
+			}
+			if(s+i>=1&&s+i<=length)
+			{	
+				var div1=location(i,s+i);
+				div1.style.backgroundColor='#abc';
+			}
+		}		
+	}
+
+	function clear(){
+		for(var i=1;i<=length;i++)
+		{
+			for(var j=1;j<=length;j++)
+			{
+				var div=locationColor(i,j);
+				div.style.backgroundColor='hsla(100,80%,60%,0.1)';
+			}
+		}
+	}
+
+
+	/*
+		a是列数，b是行数
+		gridChess中,应该先行后列(二维数组基本常识...)
+		所以索引应该是gridChess[b][a];
+	*/
+	function CornerToCorner(a,b){
+		var Na=parseInt(a);
+		var Nb=parseInt(b);
+		var div;
+		var obstacle=new Array();
+		var LeftUp=Grid.getFeasibleChains(Nb-1,Na-1,5);
+		var LeftDown=Grid.getFeasibleChains(Nb-1,Na-1,6);
+		var RightUp=Grid.getFeasibleChains(Nb-1,Na-1,7);
+		var RightDown=Grid.getFeasibleChains(Nb-1,Na-1,8);
+		LeftUp.merge(LeftDown);
+		LeftUp.merge(RightUp);
+		LeftUp.merge(RightDown);
+		chain.merge(LeftUp);
+		getColor(chain);
+		// for(var i=1;i<length;i++)
+		// {
+		// 	var tag=0;
+		// 	//左上方向
+		// 	if(OutOfRange(Na-i,Nb-i))
+		// 	{
+		// 		console.log(Grid.CheckObstacle(Na,Nb,-i,-i));
+		// 		var newDat=new dots(Nb-i,Na-i);
+		// 	if(Grid.CheckObstacle(Nb,Na,-i,-i))
+		// 	{
+		// 		var token=true;
+		// 		for(var j=0;j<obstacle.length;j++)
+		// 		{
+		// 			if(newDat.x<obstacle[j].x&&(newDat.x-obstacle[j].x==newDat.y-obstacle[j].y))
+		// 			{
+		// 				token=false;
+		// 				break;
+		// 			}
+		// 		}
+		// 		if(token)
+		// 		{
+		// 		chain.append(newDat);
+		// 		div=locationColor(Na-i-1,Nb-i-1);
+		// 		div.style.backgroundColor='hsla(200,80%,60%,0.5)';
+		// 		}
+		// 	}
+		// 	else
+		// 		obstacle.push(newDat);
+		// 	}
+		// 	else
+		// 		tag++;
+		// 	//右上方向
+		// 	if(OutOfRange(Na+i,Nb-i))
+		// 	{
+		// 	var newDat=new dots(Nb-i-1,Na+i-1);
+		// 	if(Grid.CheckObstacle(Nb,Na,-i,i))
+		// 	{
+		// 		var token=true;
+		// 		for(var j=0;j<obstacle.length;j++)
+		// 		{
+		// 			if(newDat.y>obstacle[j].y&&(newDat.x-obstacle[j].x==(newDat.y-obstacle[j].y)*(-1)))
+		// 			{
+		// 				token=false;
+		// 				break;
+		// 			}
+		// 		}
+		// 		if(token)
+		// 		{					
+		// 		chain.append(newDat);
+		// 		div=locationColor(Na+i,Nb-i);
+		// 		div.style.backgroundColor='#hsla(200,80%,60%,0.5)';
+		// 		}
+		// 	}
+		// 	else
+		// 		obstacle.push(newDat);
+		// 	}
+		// 	else
+		// 		tag++;
+		// 	//左下方向
+		// 	if(OutOfRange(Na-i,Nb+i))
+		// 	{
+		// 		var newDat=new dots(Nb+i-1,Na-i-1);
+		// 	if(Grid.CheckObstacle(Nb,Na,i,-i))
+		// 	{
+		// 		var token=true;
+		// 		for(var j=0;j<obstacle.length;j++)
+		// 		{
+		// 			if(newDat.x>obstacle[j].x&&(newDat.y-obstacle[j].y==(newDat.x-obstacle[j].x)*(-1)))
+		// 			{
+		// 				token=false;
+		// 				break;
+		// 			}
+		// 		}
+		// 		if(token)
+		// 		{					
+		// 		chain.append(newDat);
+		// 		div=locationColor(Na-i,Nb+i);
+		// 		div.style.backgroundColor='hsla(200,80%,60%,0.5)';
+		// 		}	
+		// 	}
+		// 	else
+		// 		obstacle.push(newDat);				
+		// 	}
+		// 	else
+		// 		tag++;
+		// 	//右下方向
+		// 	if(OutOfRange(Na+i,Nb+i))
+		// 	{
+		// 		var newDat=new dots(Nb+i-1,Na+i-1);
+		// 	if(Grid.CheckObstacle(Nb,Na,i,i))
+		// 	{
+		// 		var token=true;
+		// 		for(var j=0;j<obstacle.length;j++)
+		// 		{
+		// 			if(newDat.y>obstacle[j].y&&(newDat.x-obstacle[j].x==newDat.y-obstacle[j].y))
+		// 			{
+		// 				token=false;
+		// 				break;
+		// 			}
+		// 		}
+		// 		if(token)
+		// 		{					
+		// 		chain.append(newDat);
+		// 		div=locationColor(Na+i,Nb+i);
+		// 		div.style.backgroundColor='hsla(200,80%,60%,0.5)';
+		// 		}
+		// 	}				
+		// 	else
+		// 		obstacle.push(newDat);
+		// 	}
+		// 	else
+		// 		tag++;
+		// 	if(tag==4)
+		// 		break;
+		// }
+
+	}
+
+	function onChess(x,y){
+		// console.log(soldiers);
+		console.log('x='+x+'y='+y);
+		for(var i=0;i<soldiers.length;i++)
+		{
+			if(soldiers[i].x==x&&soldiers[i].y==y)
+			{
+				// console.log('soldier:'+soldiers[i].x+','+soldiers[i].y);
+				if(i%2==1){
+					return 'Soldier-w';
+				}
+				else{
+					return 'Soldier'
+				}
+			}
+			if(i<knights.length&&knights[i].x==x&&knights[i].y==y){
+				console.log('fucking horse');
+				icon=i;
+				return 'Knight';
+			}
+			if(i<kings.length&&kings[i].x==x&&kings[i].y==y){
+				icon=i;
+				return 'King';
+			}
+			if(i<queens.length&&queens[i].x==x&&queens[i].y==y){
+				icon=i;
+				return 'Queen';
+			}
+			if(i<bishops.length&&bishops[i].x==x&&bishops[i].y==y){
+				icon=i;
+				return 'Bishop';
+			}
+			if(i<castles.length&&castles[i].x==x&&castles[i].y==y){
+				icon=i;
+				return 'Castle';
+			}
+		}
+		return 'Default';
+	}
+
+	function getgrids(x,y){
+		return grids[(x-1)*8+y-1];
+	}
+
+	var findi=function(Obj,x,y){
+		var it;
+		eval('it='+Obj);
+		for(var i=0;i<it.length;i++){
+			// console.log(it);
+			// console.log(it[i].x+','+it[i].y);
+			if(it[i].x==x&&it[i].y==y){
+				return it[i];
+			}
+		}
+		return null;
+	}
+
+	for(var i=1;i<=length;i++)
+	{
+		// console.log(i+' ');
+		for(var j=1;j<=width;j++)
+		{
+			// console.log(j);
+			// console.log(soldiers);
+			locationColor(i,j).addEventListener('click',function(){
+				if(govern==0)
+					return ;
+				var maps=new Namemaps();
+				var regex=/[0]/;
+				var col=this.getAttribute('class').split(regex)[1];
+				var row=this.parentNode.getAttribute('class').split(regex)[1];
+				console.log('row='+row+'col='+col);
+				var local=grids[(parseInt(col)-1)*8+parseInt(row)-1];
+				local.Selected=!local.Selected;
+				var x=parseInt(row)
+				var y=parseInt(col);
+				var selector=onChess(x,y);
+				// console.log(selector);
+				// console.log(maps.get(selector));
+				if(decide)
+				{
+					var type;
+					var d;
+					var currentDot=new dots(y-1,x-1);
+					d=findi(chessp,lostchess.x,lostchess.y);
+					if(CheckRoad(x,y,d)&&chain.hasNode(currentDot)){
+						var div=location(lostchess.x,lostchess.y);
+						var image=div.children('img');
+						var target=location(x,y);
+						if(typeof(type=onChess(x,y))=='string'&&type!='Default')
+						{
+							console.log(type);
+							var cheflag=findi(maps.get(type),x,y).flag;
+							findi(maps.get(type),x,y).x=0;
+							findi(maps.get(type),0,y).y=0;
+							if(cheflag==lostchess.flag)
+								return ;
+							else
+							{
+								console.log('in it');
+								target.children('img').remove();
+							}	
+						}
+						target.append(div.children('img'));
+						getgrids(x,y).haschess=true;
+						getgrids(lostchess.x,lostchess.y).haschess=false;
+						d.x=x;
+						d.y=y;
+						Grid.ChangePosition(lostchess.y,lostchess.x,y,x);
+						Grid.show();
+						move=0;
+						govern=-govern;
+					}
+					chain.clear();														//链表准备重定向
+					decide=false;
+					clear();
+					return ;
+				}
+				if(selector!='Default'&&findi(maps.get(selector),x,y).flag!=govern)
+					return ;			
+				switch(onChess(x,y))
+				{
+					case 'Soldier':     soldier(x,y,1);
+										chessp='soldiers';
+										lostchess=new chesses(1,x,y,0);
+										decide=true;
+										return ;
+					case 'Soldier-w' :  soldier(x,y,-1);
+										chessp='soldiers';
+										lostchess=new chesses(-1,x,y,0);
+										decide=true;
+										return ;
+					case 'Knight' : 	
+										knight(x,y);
+										decide=true;
+										chessp='knights';
+										var datache=findi(chessp,x,y);
+										lostchess=new chesses(datache.flag,x,y,0);
+										return ;
+					case 'Bishop' : 	bishop(x,y);
+										decide=true;
+										chessp='bishops';
+										var datache=findi(chessp,x,y);
+										lostchess=new chesses(datache.flag,x,y,0);
+										return ;
+					case 'King' : 		king(x,y);
+										decide=true;
+										chessp='kings';
+										var datache=findi(chessp,x,y);
+										lostchess=new chesses(datache.flag,x,y,0);
+										return ;
+					case 'Queen' : 		queen(x,y);
+										decide=true;
+										chessp='queens';
+										var datache=findi(chessp,x,y);
+										lostchess=new chesses(datache.flag,x,y,0);
+										return ;
+					case 'Castle' :     castle(x,y);
+										chessp='castles';
+										decide=true;
+										var datache=findi(chessp,x,y);
+										lostchess=new chesses(datache.flag,x,y,0);
+										return ;
+					default : break;
+				}
+
+			
+			});
+		}
+	}
+
+
+
+	/*-------------------------chesses.js-----------------------------*/
+	var castle=function(a,b){
+		cross(a,b);
+		chain.show();
+	}
+	var bishop=function(a,b){
+		CornerToCorner(a,b);
+		chain.show();
+	}
+	var queen=function(a,b){
+		cross(a,b);
+		CornerToCorner(a,b);
+		chain.show();
+	}
+	/*
+		flag:Integer
+		flag==-1 or flag==1 for direction
+	*/
+	var soldier=function(a,b,flag){	
+		Grid.show();
+		var step=1;
+		var obstacle=new Array();
+		if(b==2||b==7)
+			step=2;
+		for(var i=1;OutOfRange(a,b+i*flag)&&i<=step;i++)
+		{
+			console.log(a+","+(b+i*flag));
+			var newDat=new dots(b+i*flag-1,a-1);
+			if(Grid.CheckObstacle(b,a,i*flag,0))
+			{
+				var token=true;
+				for(var j=0;j<obstacle.length;j++)
+				{
+					if(obstacle[j].x==newDat.x)
+					{
+						token=false;
+						break;
+					}
+				}
+				if(token)
+				{					
+				chain.append(newDat);
+				var div=locationColor(a,b+i*flag);
+				div.style.backgroundColor='hsla(200,80%,60%,0.5)';
+				}
+			}
+			else
+				obstacle.push(newDat);
+		}
+		chain.show();
+
+	}
+	
+	/*
+		关于CheckObstacle的参数问题和a,b问题详细看509页的注释 两者是颠倒的，真是设计的最最最失败之处
+	*/
+	var knight=function(a,b){
+		if(OutOfRange(a,b-2))
+		{
+			if(OutOfRange(a-1,b-2))
+			{
+			if(Grid.CheckObstacle(b,a,-2,-1))
+			{
+				var newDat=new dots(a-1-1,b-2-1);
+				chain.append(newDat);
+				var div=locationColor(a-1,b-2);
+				div.style.backgroundColor='hsla(200,80%,60%,0.5)';
+			}
+			}
+			if(OutOfRange(a+1,b-2))
+			{
+			if(Grid.CheckObstacle(b,a,-2,1))
+			{
+				var newDat=new dots(b-2-1,a+1-1);
+				chain.append(newDat);
+				var div=locationColor(a+1,b-2);
+				div.style.backgroundColor='hsla(200,80%,60%,0.5)';
+			}
+			}
+		}
+		if(OutOfRange(a+2,b))
+		{
+			if(OutOfRange(a+2,b-1))
+			{
+			if(Grid.CheckObstacle(b,a,-1,2))
+			{
+				var newDat=new dots(b-1-1,a+2-1);
+				chain.append(newDat);
+				locationColor(a+2,b-1).style.backgroundColor='hsla(200,80%,60%,0.5)';
+			}
+			}
+			if(OutOfRange(a+2,b+1))
+			{
+			if(Grid.CheckObstacle(b,a,1,2))
+			{
+				var newDat=new dots(b+1-1,a+2-1);
+				chain.append(newDat);
+				locationColor(a+2,b+1).style.backgroundColor='hsla(200,80%,60%,0.5)';
+			}
+			}
+		}
+		if(OutOfRange(a-2,b))
+		{
+			if(OutOfRange(a-2,b-1))
+			{
+			if(Grid.CheckObstacle(b,a,-1,-2))
+			{
+				var newDat=new dots(b-1-1,a-2-1);
+				chain.append(newDat);
+				locationColor(a-2,b-1).style.backgroundColor='hsla(200,80%,60%,0.5)';
+			}				
+			}
+			if(OutOfRange(a-2,b+1))
+			{
+			if(Grid.CheckObstacle(b,a,1,-2))
+			{
+				var newDat=new dots(b+1-1,a-2-1);
+				chain.append(newDat);
+				locationColor(a-2,b+1).style.backgroundColor='hsla(200,80%,60%,0.5)';
+			}				
+			}
+		}
+		if(OutOfRange(a,b-2))
+		{
+			if(OutOfRange(a-1,b-2))
+			{
+			if(Grid.CheckObstacle(b,a,-2,-1))
+			{
+				var newDat=new dots(b-2-1,a-1-1);
+				chain.append(newDat);
+				locationColor(a-1,b-2).style.backgroundColor='hsla(200,80%,60%,0.5)';
+			}				
+			}
+			if(OutOfRange(a+1,b-2))
+			{
+			if(Grid.CheckObstacle(b,a,-2,1))
+			{
+				var newDat=new dots(b-2-1,a+1-1);
+				chain.append(newDat);
+				locationColor(a+1,b-2).style.backgroundColor='hsla(200,80%,60%,0.5)';
+			}
+			}
+		}
+		if(OutOfRange(a,b+2)){
+			if(OutOfRange(a+1,b+2))
+			{
+				if(Grid.CheckObstacle(b,a,2,0))
+				{
+					var newDat=new dots(b+2-1,a-1);
+					chain.append(newDat);
+					locationColor(a+1,b+2).style.backgroundColor='hsla(200,80%,60%,0.5)';
+				}
+
+			}
+			if(OutOfRange(a-1,b+2))
+			{
+				if(Grid.CheckObstacle(b,a,2,-1))
+				{
+					var newDat=new dots(b+2-1,a-1-1);
+					chain.append(newDat);
+				locationColor(a-1,b+2).style.backgroundColor='hsla(100,80%,60%,0.5)';
+				}
+			}
+		}
+		chain.show();
+	}
+	var king=function(a,b)
+	{
+		var obstacle=new Array(0);
+		var newDat=new dots(b+2-1,a-1);
+		//向下
+		if(OutOfRange(a,b+2))
+		{
+			if(Grid.CheckObstacle(b,a,2,0))
+			{
+				var token=true;
+				for(var j=0;j<obstacle.length;j++)
+				{
+					if(obstacle[j].x<newDat.x&&obstacle[j].y==newDat.y)
+					{
+						token=false;
+						break;
+					}
+				}
+				if(token)
+				{					
+				chain.append(newDat);
+				locationColor(a,b+2).style.backgroundColor='hsla(200,80%,60%,0.5)';
+				}
+			}
+			else
+				obstacle.push(newDat);				
+		}
+		//向上
+		if(OutOfRange(a,b-2))
+		{				
+			var newDat=new dots(b-2-1,a-1);
+			if(Grid.CheckObstacle(b,a,-2,0))
+			{
+				var token=true;
+				for(var j=0;j<obstacle.length;j++)
+				{
+					if(obstacle[j].x>newDat.x&&obstacle[j].y==newDat.y)
+					{
+						token=false;
+						break;
+					}
+				}
+				if(token)
+				{					
+				chain.append(newDat);
+				locationColor(a,b-2).style.backgroundColor='hsla(200,80%,60%,0.5)';
+				}
+			}
+			else
+				obstacle.push(newDat);
+		}
+		//向右
+		if(OutOfRange(a+2,b))
+		{
+			var newDat=new dots(b-1,a+2-1);
+			if(Grid.CheckObstacle(b,a,0,2))
+			{
+				var token=true;
+				for(var j=0;j<obstacle.length;j++)
+				{
+					if(obstacle[j].y<newDat.y&&obstacle[j].x==newDat.x)
+					{
+						token=false;
+						break;
+					}
+				}
+				if(token)
+				{					
+				chain.append(newDat);
+				locationColor(a+2,b).style.backgroundColor='hsla(200,80%,60%,0.5)';
+				}
+			}
+			else
+				obstacle.push(newDat);				
+		}
+		//向左
+		if(OutOfRange(a-2,b))
+		{
+			var newDat=new dots(b-1,a-2-1);
+			if(Grid.CheckObstacle(b,a,0,-2))
+			{
+				var token=true;
+				for(var j=0;j<obstacle.length;j++)
+				{
+					if(obstacle[j].y>newDat.y&&obstacle[j].x==newDat.x)
+					{
+						token=false;
+						break;
+					}
+				}
+				if(token)
+				{					
+				chain.append(newDat);
+				locationColor(a-2,b).style.backgroundColor='hsla(200,80%,60%,0.5)';
+				}
+			}
+			else
+				obstacle.push(newDat);				
+		}
+		chain.show();
+	}
+
+	function drawingclock(drawing){
+		if(drawing.getContext("2d"))
+		{
+			var context=drawing.getContext("2d");
+			context.beginPath();
+			context.arc(100,100,50,0,2*Math.PI,false);
+			context.moveTo(100,100);
+			// context.translate(100,100);
+			// context.lineTo(40*Math.cos(2*Math.PI/60),40*Math.sin(2*Math.PI/60))
+			context.stroke();
+			context.closePath();
+
+			for(var i=0;i<60;i++)
+			{
+				context.save();	
+				context.translate(100,100);
+				context.rotate(i*2*Math.PI/60);
+				context.beginPath();
+				context.moveTo(0,-45);
+				context.lineTo(0,-50);
+				context.stroke();
+				context.closePath();
+				context.restore();
+
+			}
+		}
+	}
+
+	function tick(drawing,move,interval){
+		if(drawing.getContext("2d")){
+			var radius=40;
+			var context=drawing.getContext("2d");
+			context.clearRect(0,0,drawing.width,drawing.height);
+			drawingclock(drawing);
+			context.save();
+			context.translate(100,100);			
+			context.rotate(move*interval);			
+			context.beginPath();
+			context.moveTo(0,0);
+			context.lineTo(0,-40);
+			context.stroke();
+			context.restore();
+			context.closePath();
+		}
+
+	}
+
+
+!function(){
+	var interval=2*Math.PI/60;
+	var drawing=$$('#canvas');
+	drawingclock(drawing);
+	var drawing2=$$('#canvas2');
+	$('#canvas').hide();
+	$('#canvas2').hide();
+	drawingclock(drawing2);
+	move=setInterval(function(){
+		if(govern==1){
+			$('#canvas2').hide();
+			$('#canvas').show();
+		}else{
+			$('#canvas').hide();
+			$('#canvas2').show();
+		}
+		tick(drawing,move++,interval);
+		tick(drawing2,move,interval);
+		if(move==60)
+		{
+			govern=-govern;
+			move=0;
+		}
+		if(kings[0].x==0&&kings[0].y==0)
+		{
+			govern=0;
+			$('#clock').html('<p class=winner>白方获胜</p>');
+			$('#clock').children('p').style.backgroudColor='hsla(0,80%,60%,0.5)';
+			$('#clock').children('p').style.width='100px';
+			$('#clock').children('p').style.height='100px';
+			
+		}
+		else if(kings[1].x==0&&kings[1].y==0)
+		{
+			$('#clock').html('<p class=winner>黑方获胜</p>');
+						$('#clock').children('p').style.backgroudColor='hsla(0,80%,60%,0.5)';
+			$('#clock').children('p').style.width='100px';
+			$('#clock').children('p').style.height='100px';
+			govern=0;
+		}
+	},1000);
+
+}()
+
+	
+!function(){
+}();
+
+
+
+function grid(x,y,selected,haschess){
+		this.x=x;
+		this.y=y;
+		this.Selected=selected;
+		this.haschess=haschess;
+	}
+
+	var grids=new Array(64);
+	for(var i=0;i<grids.length;i++)
+	{
+		// if((i+1)%8!=0)
+		// 	grids[i]=new grid((i+1)%8,Math.floor(i/8+1),false);
+		// else
+		// 	grids[i]=new grid(8,Math.floor(i/8+1),false);
+		grids[i]=new grid((i+1)%8==0?8:(i+1)%8,Math.floor(i/8+1),false,(i<16||i>=48)?true:false);
+	}
+	// console.log(grids);
+}();
+	function m1(){
+		console.log('---------');
+	}
+</script>
